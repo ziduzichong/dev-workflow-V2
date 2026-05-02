@@ -17,6 +17,8 @@ git clone https://github.com/ziduzichong/dev-workflow-V2.git && mkdir -p ~/.conf
 
 **更多安装方式**（ZIP下载 / curl直接下载SKILL.md / 项目级安装）详见 → [INSTALL.md](INSTALL.md)
 
+**卸载：** 一行命令 `rm -rf ~/.config/opencode/skills/dev-workflow-v2/`（详见 [INSTALL.md #卸载](INSTALL.md#卸载)）
+
 ---
 
 ## 一、文件结构
