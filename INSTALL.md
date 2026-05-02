@@ -2,100 +2,119 @@
 
 **版本：** 2.0.0
 **适用：** OpenCode（优先）/ Claude Code（兼容）
+**GitHub：** https://github.com/ziduzichong/dev-workflow-V2
 
 ---
 
-## ⚠️ 重要说明
+## 方式一：通过 Git Clone 安装（推荐）
 
-OpenCode **没有** `skill install` 命令。
-
-Skills 是**自动发现**的：只需把 `SKILL.md` 放到约定路径，OpenCode/Claude Code 启动时会自动加载。
-
-**路径说明（Windows）：**
-- `~/.config/opencode/skills/` 对应 `C:\Users\你的用户名\.config\opencode\skills\`
-- `.opencode/skills/` 对应你的**项目根目录**下的 `.opencode\skills\`
-
----
-
-## 方式一：全局安装（推荐，所有项目生效）
+> 从 GitHub 克隆仓库，然后复制 skill 文件到目标路径。这是最标准的方式，也方便后续 `git pull` 更新。
 
 ### Bash / Git Bash
 
 ```bash
+# 1. 克隆仓库（任意目录即可）
+git clone https://github.com/ziduzichong/dev-workflow-V2.git
+
+# 2. 复制 skill 到全局路径（所有项目生效）
 mkdir -p ~/.config/opencode/skills/
-cp -r /e/WorkBuddy_workspace/dev-workflow-v2/skills/dev-workflow-v2 ~/.config/opencode/skills/
+cp -r dev-workflow-V2/skills/dev-workflow-v2 ~/.config/opencode/skills/
 ```
 
 ### PowerShell
 
 ```powershell
-# 创建目标目录
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.config\opencode\skills"
+# 1. 克隆仓库（任意目录即可）
+git clone https://github.com/ziduzichong/dev-workflow-V2.git
 
-# 复制 skill（注意：dev-workflow-v2 文件夹在 E:\WorkBuddy_workspace\ 下）
-Copy-Item -Recurse "E:\WorkBuddy_workspace\dev-workflow-v2\skills\dev-workflow-v2" "$env:USERPROFILE\.config\opencode\skills\dev-workflow-v2"
+# 2. 复制 skill 到全局路径（所有项目生效）
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.config\opencode\skills"
+Copy-Item -Recurse "dev-workflow-V2\skills\dev-workflow-v2" "$env:USERPROFILE\.config\opencode\skills\dev-workflow-v2"
 ```
 
-### 验证全局安装
+### 后续更新
 
 ```bash
-# Bash
-ls ~/.config/opencode/skills/dev-workflow-v2/SKILL.md
-
-# PowerShell
-Get-ChildItem "$env:USERPROFILE\.config\opencode\skills\dev-workflow-v2\SKILL.md"
+cd dev-workflow-V2
+git pull
+# 然后重新复制 skills/ 到目标路径（或用 ln -s 软链接免去重复复制）
 ```
 
 ---
 
-## 方式二：项目级安装（仅当前项目生效）
+## 方式二：直接下载 ZIP 安装
+
+> 不想用 Git？直接从 GitHub 下载 ZIP 包，解压后复制 skill 文件。
+
+### 步骤
+
+1. 打开 https://github.com/ziduzichong/dev-workflow-V2
+2. 点击绿色 **Code** 按钮 → 选择 **Download ZIP**
+3. 解压 ZIP 文件
+4. 将解压出的 `dev-workflow-V2-main/skills/dev-workflow-v2` 文件夹复制到目标路径（见下方路径表）
 
 ### Bash / Git Bash
 
 ```bash
-cd /e/WorkBuddy_workspace
-mkdir -p .opencode/skills/
-cp -r dev-workflow-v2/skills/dev-workflow-v2 .opencode/skills/
+# 假设 ZIP 解压到了 Downloads 目录
+cp -r ~/Downloads/dev-workflow-V2-main/skills/dev-workflow-v2 ~/.config/opencode/skills/
 ```
 
 ### PowerShell
 
 ```powershell
-cd E:\WorkBuddy_workspace
-New-Item -ItemType Directory -Force -Path .opencode\skills
-Copy-Item -Recurse dev-workflow-v2\skills\dev-workflow-v2 .opencode\skills\
+# 假设 ZIP 解压到了 Downloads 目录
+Copy-Item -Recurse "$env:USERPROFILE\Downloads\dev-workflow-V2-main\skills\dev-workflow-v2" "$env:USERPROFILE\.config\opencode\skills\dev-workflow-v2"
 ```
 
 ---
 
-## Claude Code 兼容路径
+## 方式三：用 curl/wget 直接下载 SKILL.md（最简）
 
-如果你也用 Claude Code，可以额外复制到兼容路径：
+> 如果你只需要 SKILL.md 这一个核心文件，可以用命令行直接下载。
+
+### Bash / Git Bash
 
 ```bash
-# 全局级（Bash）
-mkdir -p ~/.claude/skills/
-cp -r /e/WorkBuddy_workspace/dev-workflow-v2/skills/dev-workflow-v2 ~/.claude/skills/
+# 创建目录并下载
+mkdir -p ~/.config/opencode/skills/dev-workflow-v2
+curl -o ~/.config/opencode/skills/dev-workflow-v2/SKILL.md \
+  https://raw.githubusercontent.com/ziduzichong/dev-workflow-V2/main/skills/dev-workflow-v2/SKILL.md
 ```
 
+### PowerShell
+
 ```powershell
-# 全局级（PowerShell）
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\skills"
-Copy-Item -Recurse "E:\WorkBuddy_workspace\dev-workflow-v2\skills\dev-workflow-v2" "$env:USERPROFILE\.claude\skills\dev-workflow-v2"
+# 创建目录并下载
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.config\opencode\skills\dev-workflow-v2"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/ziduzichong/dev-workflow-V2/main/skills/dev-workflow-v2/SKILL.md" `
+  -OutFile "$env:USERPROFILE\.config\opencode\skills\dev-workflow-v2\SKILL.md"
 ```
 
 ---
 
-## OpenCode 自动扫描路径（无需手动安装）
+## 全局安装 vs 项目级安装
 
-只需把文件放对位置，OpenCode 启动时会自动发现：
+### 全局安装（推荐，所有项目生效）
 
-| 类型 | 路径 | 说明 |
-|------|------|------|
-| 项目级（OpenCode 原生） | `.opencode/skills/<name>/SKILL.md` | 仅当前项目生效 |
-| 全局级（OpenCode 原生） | `~/.config/opencode/skills/<name>/SKILL.md` | 所有项目生效 |
-| 项目级（Claude 兼容） | `.claude/skills/<name>/SKILL.md` | Claude Code 也能识别 |
-| 全局级（Claude 兼容） | `~/.claude/skills/<name>/SKILL.md` | Claude Code 全局 |
+| 平台 | 路径 |
+|------|------|
+| OpenCode 全局 | `~/.config/opencode/skills/<name>/SKILL.md` |
+| Claude Code 全局 | `~/.claude/skills/<name>/SKILL.md` |
+
+> Windows 下 `~` 对应 `C:\Users\你的用户名\`。上方所有命令默认安装到 OpenCode 全局路径。
+
+### 项目级安装（仅当前项目生效）
+
+| 平台 | 路径 |
+|------|------|
+| OpenCode 项目级 | `.opencode/skills/<name>/SKILL.md`（项目根目录下） |
+| Claude Code 项目级 | `.claude/skills/<name>/SKILL.md` |
+
+```bash
+# 克隆后复制到项目级路径
+cp -r dev-workflow-V2/skills/dev-workflow-v2 .opencode/skills/
+```
 
 ---
 
@@ -151,10 +170,11 @@ Remove-Item -Recurse -Force "$env:USERPROFILE\.claude\skills\dev-workflow-v2\"
 ## 目录结构
 
 ```
-dev-workflow-v2/
-├── README.md
-├── INSTALL.md
+dev-workflow-V2/
+├── README.md              ← 项目说明
+├── INSTALL.md             ← 本文档（安装指南）
+├── LICENSE
 └── skills/
     └── dev-workflow-v2/
-        └── SKILL.md      ← 唯一核心文件（~600行，完全自包含）
+        └── SKILL.md       ← 唯一核心文件（~600行，完全自包含）
 ```

@@ -2,6 +2,20 @@
 
 > 版本：2.0.0 · 生成时间：2026-05-02
 > 适用平台：OpenCode（优先）/ Claude Code（兼容）/ 相近 agent 平台
+> GitHub：https://github.com/ziduzichong/dev-workflow-V2
+
+---
+
+## 零、快速安装
+
+**最简安装（一行命令）：**
+
+```bash
+# 克隆 + 全局安装（OpenCode）
+git clone https://github.com/ziduzichong/dev-workflow-V2.git && mkdir -p ~/.config/opencode/skills/ && cp -r dev-workflow-V2/skills/dev-workflow-v2 ~/.config/opencode/skills/
+```
+
+**更多安装方式**（ZIP下载 / curl直接下载SKILL.md / 项目级安装）详见 → [INSTALL.md](INSTALL.md)
 
 ---
 
@@ -113,3 +127,5 @@ compatibility: opencode    # 主平台声明
 ---
 
 *生成时间：2026-05-02 · 版本 2.0.0*
+*GitHub：https://github.com/ziduzichong/dev-workflow-V2*
+*完整安装指南：[INSTALL.md](INSTALL.md)*
